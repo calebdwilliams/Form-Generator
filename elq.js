@@ -30,7 +30,8 @@ var schema = {
 	}
 };
 
-var config = {};
+var config = {},
+	siteCredentials = {};
 
 prompt.message = 'Form Generator'.green;
 prompt.start();
@@ -44,15 +45,19 @@ prompt.get(schema, function(err, result) {
 		config.site = 'Site ID';
 		config.form = result.formId;
 		config.ajax = result.ajax;
+		siteCredentials.username = user.checkpoint.username;
+		siteCredentials.password = user.checkpoint.password;
 	} else if (result.instance === 'onesource') {
 		// Info redacted
 		config.id = 'ONESOURCE ID';
 		config.site = 'Site ID';
 		config.form = result.formId;
 		config.ajax = result.ajax;
+		siteCredentials.username = user.onesource.username;
+		siteCredentials.password = user.onesource.password;
 	}
 
-	var eloqua = new elq(config.site, user.username, user.password);
+	var eloqua = new elq(config.site, siteCredentials.username, siteCredentials.password);
 
 	async.series([
 		function(next) {

@@ -1,4 +1,10 @@
 module.exports = {
-	username: 'username',
-	password: 'password'
+	'onesource': {
+		username: 'username',
+		password: 'password'
+	},
+	'checkpoint': {
+		username: 'username',
+		password: 'password'
+	}
 }
