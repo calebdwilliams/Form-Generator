@@ -132,6 +132,27 @@ module.exports = function(data, callback) {
 	if (data.config.ajax === 'y') {
 		output += '<div class="success-content" style="display: none" aria-live="assertive"><!-- SUCCESS CONTENT HERE --></div>';
 	}
+	output += '<script type=\'text/javascript\'><!--//';
+    output += 'var timerId = null, timeout = 5;';
+    output += '//--></script>';
+	output += '<script type=\'text/javascript\'><!--//';
+    output += 'function WaitUntilCustomerGUIDIsRetrieved() {';
+	output += 'if (!!(timerId)) {';
+	output += 'if (timeout == 0) {';
+	output += 'return;';
+	output += '}';
+	output += 'if (typeof this.GetElqCustomerGUID === \'function\') {';
+	output += 'document.forms["' + formName + '"].elements["elqCustomerGUID"].value = GetElqCustomerGUID();';
+	output += 'return;';
+	output += '}';
+	output += 'timeout -= 1;';
+	output += '}';
+	output += 'timerId = setTimeout("WaitUntilCustomerGUIDIsRetrieved", 500);';
+	output += 'return;';
+	output += '}';
+	output += 'window.onload = WaitUntilCustomerGUIDIsRetrieved;';
+	output += '_elqQ.push([\'elqGetCustomerGUID\']);';
+	output += '//--></script>';
 
 	callback(null, output);
 }
