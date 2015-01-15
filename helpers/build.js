@@ -1,11 +1,11 @@
 module.exports = function(data, callback) {
 	var elements = data.initial.elements,
-		formName = data.initial.name,
+		formName = data.initial.htmlName,
 		optList = data.optionListResult,
 		instance = data.config.id,
 		output = '';
 
-	output += '<form method="post" name="' + formName + '" action="https://s' + instance + '.t.eloqua.com/e/f2" id="' + data.initial.id + '" class="ws-validate inline-elements';
+	output += '<form method="post" name="' + formName + '" action="https://s' + instance + '.t.eloqua.com/e/f2" id="form' + data.initial.id + '" class="ws-validate inline-elements';
 
 	if (data.config.ajax === 'y') {
 		output += ' ajax-form';
