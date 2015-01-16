@@ -68,7 +68,7 @@ prompt.get(schema, function(err, result) {
 				optionListResult: []
 			};
 			eloqua.get('/API/REST/2.0/assets/form/' + config.form + '?depth=complete', function(err, res) {
-				if (err) {console.log(err);}
+				if (err) { next(err, null); }
 				
 				results.initial = res;
 				
@@ -93,7 +93,7 @@ prompt.get(schema, function(err, result) {
 			async.series([
 				function(next) {
 					eloqua.get('/API/REST/2.0/assets/optionList/' + content.id + '?depth=complete', function(err, res) {
-						if (err) {console.log(err);}
+						if (err) { next(err, null); }
 
 						var output = '';
 
@@ -129,6 +129,7 @@ prompt.get(schema, function(err, result) {
 					});
 				}
 			], function(err, result) {
+				if (err) { throw err; }
 				results[0].optionListResult.push(result[0]);
 				if (results[0].optionListResult.length === results[0].optionListIds.length) {
 					var name = 'output/' + results[0].initial.name + '.html';
